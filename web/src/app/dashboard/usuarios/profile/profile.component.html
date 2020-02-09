@@ -1,0 +1,100 @@
+<ngb-tabset>
+  <ngb-tab title="Datos de perfil">
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body register-card-body">
+          <p class="login-box-msg">Datos de perfil</p>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="mensaje">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mensaje = null">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ mensaje }} </strong>
+          </div>
+
+          <form ngNativeValidate [formGroup]="formDatos" (ngSubmit)="guardarUsuario()" action="" method="">
+            <label for="name">Nombre completo</label>
+            <div class="input-group mb-3">
+              <input formControlName="name" name="name" type="text" class="form-control" placeholder="Nombre Completo"
+                required [ngClass]="{'is-invalid': formDatos.controls['name'].errors?.serverError}">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+            <label for="name">Email</label>
+            <div class="input-group mb-3">
+              <input formControlName="email" name="email" type="email" class="form-control" placeholder="Email" required
+                [ngClass]="{'is-invalid': formDatos.controls['email'].errors?.serverError}" disabled>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+              <div class="invalid-feedback">
+                {{ formDatos.controls['email'].errors?.serverError }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-8">
+              </div>
+              <div class="col-4">
+                <button [disabled]="formDatos.invalid" type="submit" class="btn btn-primary btn-block">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Cambiar contraseña">
+    <ng-template ngbTabContent>
+        <div class="card">
+            <div class="card-body register-card-body">
+              <p class="login-box-msg">Cambiar contraseña</p>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="mensaje">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mensaje = null">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{ mensaje }} </strong>
+              </div>
+
+              <form ngNativeValidate [formGroup]="formPassword" (ngSubmit)="cambiarPassword()" action="" method="">
+                <label for="name">Contraseña</label>
+                <div class="input-group mb-3">
+                  <input formControlName="password" name="password" type="password" class="form-control"
+                    placeholder="Ingrese nueva contraseña" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+                <label for="name">Reiterar contraseña</label>
+                <div class="input-group mb-3">
+                  <input formControlName="password2" name="password2" type="password" class="form-control"
+                    placeholder="Reiterar nueva contraseña" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                    <div class="form-group" *ngIf="formPassword.hasError('sonIguales') && !formPassword.pristine">
+                      <p class="text-danger">
+                        Las contraseñas deben de ser iguales
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-8">
+                  </div>
+                  <div class="col-4">
+                    <button [disabled]="formPassword.invalid" type="submit" class="btn btn-primary btn-block">Cambiar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

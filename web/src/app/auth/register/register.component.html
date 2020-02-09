@@ -1,0 +1,100 @@
+<div class="hold-transition register-page">
+  <div class="register-box">
+    <div class="register-logo">
+      <b>{{ nombreApp }}</b>
+    </div>
+
+    <div class="card">
+      <div class="card-body register-card-body">
+        <p class="login-box-msg">Crear cuenta</p>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="mensaje" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mensaje = null">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{ mensaje }} </strong>
+        </div>
+
+        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarUsuario()" action="" method="">
+          <div class="input-group mb-3">
+            <input formControlName="name" name="name" type="text" class="form-control" placeholder="Nombre Completo"
+              required [ngClass]="{'is-invalid': forma.controls['name'].errors?.serverError}">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="email" name="email" type="email" class="form-control" placeholder="Email" required
+              [ngClass]="{'is-invalid': forma.controls['email'].errors?.serverError}">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              {{ forma.controls['email'].errors?.serverError }}
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="password" name="password" type="password" class="form-control"
+              placeholder="Contraseña" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              {{ forma.controls['email'].errors?.serverError }}
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="password2" name="password2" type="password" class="form-control"
+              placeholder="Reiterar contraseña" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+              <div class="form-group" *ngIf="forma.hasError('sonIguales') && !forma.pristine">
+                <p class="text-danger">
+                  Las contraseñas deben de ser iguales
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input formControlName="condiciones" name="condiciones" type="checkbox" id="condiciones" value="" required>
+                <label for="agreeTerms">&nbsp;
+                  Acepto los <a href="#">Términos</a>
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button [disabled]="forma.invalid" type="submit" class="btn btn-primary btn-block">Crear</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+<!--
+        <div class="social-auth-links text-center">
+          <p>- O -</p>
+          <a href="#" class="btn btn-block btn-primary">
+            <i class="fab fa-facebook mr-2"></i>
+            Ingresar usando Facebook
+          </a>
+          <a href="#" class="btn btn-block btn-danger">
+            <i class="fab fa-google-plus mr-2"></i>
+            Ingresar usando Google+
+          </a>
+        </div>
+-->
+        <a routerLink="/auth/login" class="text-center">Ya tengo cuenta</a>
+      </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
+  </div>
+  <!-- /.register-box -->
+</div>

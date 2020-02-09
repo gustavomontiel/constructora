@@ -1,0 +1,12 @@
+<ol class="breadcrumb mb-1 p-2">
+  <li *ngFor="let breadcrumb of breadcrumbs; last as isLast;"
+      class="breadcrumb-item"
+      [ngClass]="{'active': isLast}" aria-current="page">
+    <a *ngIf="!isLast; else lastRoute"
+       [routerLink]="[breadcrumb.url]"
+       routerLinkActive="active">
+       <small>{{ breadcrumb.label }}</small>
+    </a>
+    <ng-template #lastRoute><small>{{ breadcrumb.label }}</small></ng-template>
+  </li>
+</ol>
