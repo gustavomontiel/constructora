@@ -183,6 +183,32 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'DocumentoController@showByProveedor'
     ]);
 
+    /* Pedidos Routes */
+    $router->get('/pedidos', [
+        'as' => 'pedidos.index',
+        'uses' => 'PedidoController@index'
+    ]);
+
+    $router->post('/pedidos', [
+        'as' => 'pedidos.store',
+        'uses' => 'PedidoController@store'
+    ]);
+
+    $router->get('/pedidos/{id}', [
+        'as' => 'pedidos.show',
+        'uses' => 'PedidoController@show'
+    ]);
+
+    $router->put('/pedidos/{id}', [
+        'as' => 'pedidos.update',
+        'uses' => 'PedidoController@update'
+    ]);
+
+    $router->delete('/pedidos/{id}', [
+        'as' => 'pedidos.destroy',
+        'uses' => 'PedidoController@destroy'
+    ]);
+
     /* Admin Routes */
     $router->group(['middleware' => 'role:administrador'], function (Router $router) {
 
