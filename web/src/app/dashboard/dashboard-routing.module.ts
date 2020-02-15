@@ -29,6 +29,27 @@ const dashboardRoutes: Routes = [
         },
         loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosdModule ),
       },
+      {
+        path: 'obras',
+        data: {
+          title: ''
+        },
+        loadChildren: () => import('./obras/obras.module').then(m => m.ObrasModule ),
+      },
+      {
+        path: 'materiales',
+        data: {
+          title: ''
+        },
+        loadChildren: () => import('./materiales/materiales.module').then(m => m.MaterialesModule ),
+      },
+      {
+        path: 'herramientas',
+        data: {
+          title: ''
+        },
+        loadChildren: () => import('./herramientas/herramientas.module').then(m => m.HerramientasModule ),
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]

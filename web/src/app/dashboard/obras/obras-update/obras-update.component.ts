@@ -1,23 +1,23 @@
-import { PuedeDesactivar } from '../../../shared/services/can-deactivate.guard';
+import { ObrasService } from './../obras.service';
+import { Obra } from './../../../shared/models/obra.model';
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from '../usuarios.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Usuario } from '../../models/usuario.model';
 import Swal from 'sweetalert2';
 
-@Component({
-  selector: 'app-editar-usuario',
-  templateUrl: './editar-usuario.component.html',
-  styleUrls: ['./editar-usuario.component.scss']
-})
-export class EditarUsuarioComponent implements OnInit, PuedeDesactivar {
 
-  usuario: Usuario;
+@Component({
+  selector: 'app-obras-update',
+  templateUrl: './obras-update.component.html',
+  styleUrls: ['./obras-update.component.scss']
+})
+export class ObrasUpdateComponent implements OnInit {
+
+  obra: Obra;
   forma: FormGroup;
 
   constructor(
-    public usuariosService: UsuariosService,
+    public obrasService: ObrasService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
   ) { }
@@ -25,11 +25,8 @@ export class EditarUsuarioComponent implements OnInit, PuedeDesactivar {
   ngOnInit() {
 
     this.forma = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      username: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      // rol: new FormControl(null, [Validators.required]),
-      password: new FormControl(null),
+      nombre: new FormControl(null, Validators.required),
+      descripcion: new FormControl(null, Validators.required),
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -41,16 +38,13 @@ export class EditarUsuarioComponent implements OnInit, PuedeDesactivar {
 
   leerItem(id: string) {
 
-    this.usuariosService.getItemById(id)
+    this.obrasService.getItemById(id)
       .subscribe(resp => {
-        this.usuario = resp.data;
-        console.log(this.usuario);
+        this.obra = resp.data;
+        console.log(this.obra);
         this.forma.setValue({
-          name: this.usuario.name,
-          username: this.usuario.username,
-          email: this.usuario.email,
-          password: ''
-          // roleNames: this.usuario.roleNames[0] ? this.usuario.roleNames[0] : '',
+          nombre: this.obra.nombre,
+          descripcion: this.obra.descripcion,
         });
       }
       );
@@ -67,10 +61,9 @@ export class EditarUsuarioComponent implements OnInit, PuedeDesactivar {
 
       if (result.value) {
 
-        const item = { ... this.forma.value, id: this.usuario.id } as Usuario;
-        item.password = item.password.length < 3 ? null : item.password;
+        const item = { ... this.forma.value, id: this.obra.id };
 
-        this.usuariosService.updateItem(item).subscribe(
+        this.obrasService.updateItem(item).subscribe(
           resp => {
             Swal.fire(
               'Guardado!',

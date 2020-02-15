@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CanDeactivateGuard } from '../../shared/guards/can-deactivate.guard';
 
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
-import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
-import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { UsuariosCreateComponent } from './usuarios-create/usuarios-create.component';
+import { UsuariosUpdateComponent } from './usuarios-update/usuarios-update.component';
 import { ProfileComponent } from './profile/profile.component';
-import { CanDeactivateGuard } from '../../shared/services/can-deactivate.guard';
 
 
 const usuariosRoutes: Routes = [
@@ -17,16 +17,16 @@ const usuariosRoutes: Routes = [
     },
     children: [
       {
-        path: 'lista-usuarios',
+        path: 'usuarios-list',
         component: UsuariosListComponent,
         data: {
-          title: 'Listado usuario',
+          title: 'Listado de usuarios',
           rolesPermitidos: []
         }
       },
       {
-        path: 'crear-usuario',
-        component: CrearUsuarioComponent,
+        path: 'usuarios-create',
+        component: UsuariosCreateComponent,
         canDeactivate: [CanDeactivateGuard],
         data: {
           title: 'Crear usuario',
@@ -34,8 +34,8 @@ const usuariosRoutes: Routes = [
         }
       },
       {
-        path: 'editar-usuario/:id',
-        component: EditarUsuarioComponent,
+        path: 'usuarios-update/:id',
+        component: UsuariosUpdateComponent,
         canDeactivate: [CanDeactivateGuard],
         data: {
           title: 'Editar usuario',
@@ -50,8 +50,8 @@ const usuariosRoutes: Routes = [
           rolesPermitidos: []
         }
       },
-      { path: '', redirectTo: 'lista-usuarios'},
-      { path: '**', redirectTo: 'lista-usuarios'}
+      { path: '', redirectTo: 'usuarios-list'},
+      { path: '**', redirectTo: 'usuarios-list'}
 
     ]
   },

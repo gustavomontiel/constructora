@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // componentes
 import { AppComponent } from './app.component';
-import { TokenInterceptor } from './shared/services/token.interceptor';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 
 
 @NgModule({

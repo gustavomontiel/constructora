@@ -1,0 +1,106 @@
+GUIA DE PASOS PARA CREAR UN MODULO CRUD DE UN MODELO ( OBRAS COMO EJEMPLO )
+---------------------------------------------------------------------------
+
+PASO 1 - Crear modulo, componentes y servicios con:
+---------------------------------------------------
+ng g m dashboard/obras --routing=true
+ng g c dashboard/obras/obras-list --skipTests=true
+ng g c dashboard/obras/obras-create --skipTests=true
+ng g c dashboard/obras/obras-update --skipTests=true
+ng g s dashboard/obras/obras --skipTests=true
+
+Esto es solo si va a tener un view y/o una vista antes del delete:
+------------------------------------------------------------------
+ng g c dashboard/obras/obras-view --skipTests=true
+ng g c dashboard/obras/obras-delete --skipTests=true
+------------------------------------------------------------------
+
+PASO 2 - Crear modelo en la carpeta app/shared/model ej: obra.model.ts:
+-----------------------------------------------------------------------
+export class Obra {
+  public nombre: string;
+  public descripcion: string;
+  // tslint:disable-next-line: variable-name
+  public created_at?: Date;
+  // tslint:disable-next-line: variable-name
+  public updated_at?: Date;
+  public id?: number;
+}
+
+PASO 3 - Agregar en app/dashboard/dashboard-routing.module.ts:
+--------------------------------------------------------------
+{
+  path: 'obras',
+  data: {
+    title: ''
+  },
+  loadChildren: () => import('./obras/obras.module').then(m => m.ObrasModule ),
+}
+
+PASO 4 - En la part imports de obras.module.ts ej minimo necesario:
+-------------------------------------------------------------------
+imports: [
+    CommonModule,
+    MaterialModule,
+    NgbModule,
+    ReactiveFormsModule,
+    ObrasRoutingModule
+  ]
+
+PASO 5 - En la parte const routes: Routes de obras.routing.module.ts ej minimo necesario:
+------------------------------------------------------------------------------------------
+{
+    path: '',
+    data: {
+      title: 'obras',
+      rolesPermitidos: []
+    },
+    children: [
+      {
+        path: 'obras-list',
+        component: ObrasListComponent,
+        data: {
+          title: 'Listado de obras',
+          rolesPermitidos: []
+        }
+      },
+      {
+        path: 'obras-create',
+        component: ObrasCreateComponent,
+        canDeactivate: [CanDeactivateGuard],
+        data: {
+          title: 'Crear obra',
+          rolesPermitidos: []
+        }
+      },
+      {
+        path: 'obras-update/:id',
+        component: ObrasUpdateComponent,
+        canDeactivate: [CanDeactivateGuard],
+        data: {
+          title: 'Editar obra',
+          rolesPermitidos: []
+        }
+      },
+      { path: '', redirectTo: 'obras-list'},
+      { path: '**', redirectTo: 'obras-list'}
+
+    ]
+  },
+
+
+PASO 6 - Agregar en el menu en app/dashboard/layout/sidebar/sidebar.component.
+------------------------------------------------------------------------------
+<li class="nav-item">
+  <a routerLink="obras" class="nav-link" routerLinkActive="active">
+    <i class="fas fa-tractor nav-icon"></i>
+    <p>Obras</p>
+  </a>
+</li>
+
+PASO 7 - Copiar a tumodelo.service.ts el contenido de la clase obras.service.ts
+-------------------------------------------------------------------------------
+cambiar solo la variable urlModel
+
+
+*** Tomar de base los archivos de los componentes ayuda ya q no cambia la lógina basica. ***

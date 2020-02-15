@@ -1,17 +1,16 @@
 import { UsuariosService } from './../usuarios.service';
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../models/usuario.model';
+import { Usuario } from '../../../shared/models/usuario.model';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { PuedeDesactivar } from '../../../shared/services/can-deactivate.guard';
 
 @Component({
-  selector: 'app-crear-usuario',
-  templateUrl: './crear-usuario.component.html',
-  styleUrls: ['./crear-usuario.component.scss']
+  selector: 'app-usuarios-create',
+  templateUrl: './usuarios-create.component.html',
+  styleUrls: ['./usuarios-create.component.scss']
 })
-export class CrearUsuarioComponent implements OnInit, PuedeDesactivar {
+export class UsuariosCreateComponent implements OnInit {
 
   usuario: Usuario;
   forma: FormGroup;
@@ -42,10 +41,10 @@ export class CrearUsuarioComponent implements OnInit, PuedeDesactivar {
     }).then((result) => {
 
       if (result.value) {
-        const user = { ... this.forma.value };
-        console.log(user);
+        const item = { ... this.forma.value };
+        console.log(item);
 
-        this.usuariosService.createItem(user).subscribe(
+        this.usuariosService.createItem(item).subscribe(
           resp => {
 
             Swal.fire({
@@ -57,7 +56,7 @@ export class CrearUsuarioComponent implements OnInit, PuedeDesactivar {
               this.forma.markAsPristine();
               const url = this.router.url.split('/');
               url.pop();
-              url.push('editar-usuario');
+              url.push('usuarios-list');
               this.router.navigateByUrl(url.join('/'));
               console.log(url);
             });
@@ -93,6 +92,5 @@ export class CrearUsuarioComponent implements OnInit, PuedeDesactivar {
     }
 
   }
-
 
 }

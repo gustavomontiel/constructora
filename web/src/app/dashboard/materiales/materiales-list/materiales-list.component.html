@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <h3>Usuarios</h3>
+  <h3>Materiales</h3>
   <mat-form-field class="col-9">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
   </mat-form-field>
 
-  <button type="button" (click)="agregarItem()" class="btn btn-primary float-right col-3">Agregar usuario</button>
+  <button type="button" (click)="agregarItem()" class="btn btn-primary float-right col-3">Agregar Material</button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -13,24 +13,14 @@
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Nombre </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> Nombre de usuario </th>
-      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block">Email</span> </th>
-      <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.email}}</span> </td>
-    </ng-container>
-
-    <ng-container matColumnDef="rolenames">
-      <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block"> Rol</span> </th>
-      <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.roleNames[0]}}</span> </td>
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
     </ng-container>
 
     <ng-container matColumnDef="acciones">
@@ -53,3 +43,5 @@
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
+
+

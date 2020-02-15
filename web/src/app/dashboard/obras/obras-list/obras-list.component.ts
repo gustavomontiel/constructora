@@ -1,29 +1,27 @@
+import { ObrasService } from './../obras.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Usuario } from '../../../shared/models/usuario.model';
-import { UsuariosService } from '../usuarios.service';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Obra } from 'src/app/shared/models/obra.model';
 
 @Component({
-  selector: 'app-usuarios-list',
-  templateUrl: './usuarios-list.component.html',
-  styleUrls: ['./usuarios-list.component.scss']
+  selector: 'app-obras-list',
+  templateUrl: './obras-list.component.html',
+  styleUrls: ['./obras-list.component.scss']
 })
+export class ObrasListComponent implements OnInit {
 
-export class UsuariosListComponent implements OnInit {
-
-  tableData: Usuario[];
+  tableData: Obra[];
   dataSource: any;
-  displayedColumns: string[] = ['id', 'name', 'username', 'email', 'rolenames', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'acciones'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-
   constructor(
-    public usuariosService: UsuariosService,
+    public obrasService: ObrasService,
     private route: Router
   ) { }
 
@@ -32,7 +30,7 @@ export class UsuariosListComponent implements OnInit {
   }
 
   getTableData() {
-    this.usuariosService.getItems()
+    this.obrasService.getItems()
       .subscribe(resp => {
         console.log(resp);
         this.tableData = resp.data;
@@ -54,14 +52,15 @@ export class UsuariosListComponent implements OnInit {
   agregarItem() {
     const url = this.route.url.split('/');
     url.pop();
-    url.push('usuarios-create');
+    url.push('obras-create');
     this.route.navigateByUrl(url.join('/'));
   }
 
   editarItem(id: string) {
+    console.log('editarItem');
     const url = this.route.url.split('/');
     url.pop();
-    url.push('usuarios-update');
+    url.push('obras-update');
     this.route.navigateByUrl( url.join('/') + '/' + id );
   }
 
@@ -70,7 +69,7 @@ export class UsuariosListComponent implements OnInit {
     Swal.fire({
 
       title: 'Confirmación?',
-      text: 'Confirma eliminar el registro ' + item.name + '?',
+      text: 'Confirma eliminar el registro ' + item.nombre + '?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si',
@@ -79,7 +78,7 @@ export class UsuariosListComponent implements OnInit {
     }).then((result) => {
 
       if (result.value) {
-        this.usuariosService.deleteItem(item)
+        this.obrasService.deleteItem(item)
           .subscribe(
             resp => {
               Swal.fire(

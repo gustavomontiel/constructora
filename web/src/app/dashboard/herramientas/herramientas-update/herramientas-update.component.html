@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <h3>Editar herramienta</h3>
+  <div class="col-12">
+    <div class="card card-primary mt-2 container">
+      <!-- form start -->
+      <form role="form" ngNativeValidate [formGroup]="forma" (ngSubmit)="updateItem()" action="" method="post">
+        <div class="card-body form-row">
+          <div class="form-group col-md-3">
+            <label for="codigo">Código</label>
+            <input formControlName="codigo" name="codigo" type="text" class="form-control"
+              placeholder="Código de la herramienta" required>
+          </div>
+          <div class="form-group col-md-9">
+            <label for="nombre">Nombre</label>
+            <input formControlName="nombre" name="nombre" type="text" class="form-control"
+              placeholder="Nombre de la obra" required>
+          </div>
+          <div class="form-group col-md-9">
+            <label for="descripcion">Descripción</label>
+            <input formControlName="descripcion" name="descripcion" type="text" class="form-control"
+              placeholder="Descripción" required>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="estado">Estado</label>
+            <input formControlName="estado" name="estado" type="text" class="form-control" placeholder="Estado"
+              required>
+          </div>
+          <div class="form-group col-md-12">
+            <label for="observacion">Observaciones</label>
+            <input formControlName="observacion" name="observacion" type="text" class="form-control"
+              placeholder="Observaciones" required>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer row justify-content-end">
+          <a routerLink="obras" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+          <button [disabled]="forma.invalid || this.forma.pristine" type="submit"
+            class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

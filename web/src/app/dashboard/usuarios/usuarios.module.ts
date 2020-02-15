@@ -12,8 +12,8 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { UsuariosRoutingModule } from './usuarios-routing.module';
 
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
-import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
-import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { UsuariosCreateComponent } from './usuarios-create/usuarios-create.component';
+import { UsuariosUpdateComponent } from './usuarios-update/usuarios-update.component';
 import { ProfileComponent } from './profile/profile.component';
 
 
@@ -21,19 +21,17 @@ import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     UsuariosListComponent,
-    CrearUsuarioComponent,
-    EditarUsuarioComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsuariosCreateComponent,
+    UsuariosUpdateComponent
   ],
   exports: [
-    UsuariosListComponent,
-    CrearUsuarioComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     NgbModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     UsuariosRoutingModule
   ],
   providers: [],
