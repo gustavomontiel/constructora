@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { ToastComponent } from '../shared/components/toasts/toast.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../shared/interceptors/token.interceptor';
+import { NotFoundComponent } from '../shared/components/not-found/not-found.component';
 
 
 
@@ -26,6 +27,7 @@ import { TokenInterceptor } from '../shared/interceptors/token.interceptor';
     DashboardComponent,
     HomeComponent,
     ToastComponent,
+    NotFoundComponent
   ],
   exports: [
   ],
