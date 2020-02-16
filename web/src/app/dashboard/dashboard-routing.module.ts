@@ -50,6 +50,13 @@ const dashboardRoutes: Routes = [
         },
         loadChildren: () => import('./herramientas/herramientas.module').then(m => m.HerramientasModule ),
       },
+      {
+        path: 'proveedores',
+        data: {
+          title: ''
+        },
+        loadChildren: () => import('./proveedores/proveedores.module').then(m => m.ProveedoresModule ),
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]

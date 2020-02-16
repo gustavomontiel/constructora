@@ -1,7 +1,7 @@
 import { AuthService } from '../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NOMBRE_APP } from './../../config/config';
+import { NOMBRE_APP } from '../../shared/config/config';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 

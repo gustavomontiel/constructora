@@ -1,6 +1,6 @@
 import { AuthService } from '../../../auth/services/auth.service';
 import { Component, OnInit, enableProdMode, ɵConsole } from '@angular/core';
-import { ORGANIZACION } from './../../../config/config';
+import { ORGANIZACION } from '../../../shared/config/config';
 import { Router } from '@angular/router';
 
 

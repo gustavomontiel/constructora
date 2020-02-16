@@ -1,6 +1,6 @@
 import { AuthService } from '../../../auth/services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { NOMBRE_APP } from './../../../config/config';
+import { NOMBRE_APP } from '../../../shared/config/config';
 import { MenuService } from '../menu.service';
 
 

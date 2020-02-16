@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
-import { NOMBRE_APP } from './config/config';
+import { NOMBRE_APP } from './shared/config/config';
 
 @Component({
   selector: 'app-root',

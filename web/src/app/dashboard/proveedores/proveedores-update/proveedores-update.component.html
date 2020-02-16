@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <h3>Editar Proveedor</h3>
+  <div class="col-12">
+    <div class="card card-primary mt-2 container">
+      <!-- form start -->
+      <form role="form" ngNativeValidate [formGroup]="forma" (ngSubmit)="updateItem()" action="" method="post">
+        <div class="card-body form-row">
+
+          <div class="form-group col-md-12">
+            <label for="nombre">Nombre</label>
+            <input formControlName="nombre" name="nombre" type="text" class="form-control"
+              placeholder="Nombre del proveedor" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="cuit">Cuit</label>
+            <input formControlName="cuit" name="cuit" type="number" class="form-control"
+              placeholder="CUIT" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="telefono">Teléfono</label>
+            <input formControlName="telefono" name="telefono" type="text" class="form-control"
+              placeholder="Teléfono" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="telefono">Cta. cte.</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <input type="checkbox" formControlName="cuenta_corriente" name="cuenta_corriente" >
+                </span>
+              </div>
+              <input type="text" class="form-control"
+              [value]=" forma.get('cuenta_corriente').value ? 'Activa' : 'Inactiva'"
+              readonly>
+            </div>
+          </div>
+
+          <div class="row p-1" formGroupName="direccion">
+
+            <div class="form-group col-md-3">
+              <label for="calle">Calle</label>
+              <input formControlName="calle" name="calle" type="text" class="form-control"
+                placeholder="Calle" required>
+            </div>
+
+            <div class="form-group col-md-1">
+              <label for="numero">Número</label>
+              <input formControlName="numero" name="numero" type="text" class="form-control"
+                placeholder="Número" required>
+            </div>
+
+            <div class="form-group col-md-1">
+              <label for="piso">Piso</label>
+              <input formControlName="piso" name="piso" type="text" class="form-control"
+                placeholder="Piso">
+            </div>
+
+            <div class="form-group col-md-1">
+              <label for="departamento">Dpto</label>
+              <input formControlName="departamento" name="departamento" type="text"
+                class="form-control" placeholder="Dpto">
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for="localidad">Localidad</label>
+              <input formControlName="localidad" name="localidad" type="text" class="form-control"
+                placeholder="Localidad" required>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for="provincia">Provincia</label>
+              <input formControlName="provincia" name="provincia" type="text" class="form-control"
+                placeholder="Provincia" required>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for="pais">Pais</label>
+              <input formControlName="pais" name="pais" type="text" class="form-control"
+                placeholder="Pais" required>
+            </div>
+
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer row justify-content-end">
+          <a routerLink="obras" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+          <button [disabled]="forma.invalid || this.forma.pristine" type="submit"
+            class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

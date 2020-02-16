@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ORGANIZACION } from './../../../config/config';
+import { ORGANIZACION } from '../../../shared/config/config';
 
 @Component({
   selector: 'app-footer',
