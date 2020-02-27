@@ -105,6 +105,16 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'MaterialController@importarMateriales'
     ]);
 
+    $router->get('/rubros', [
+        'as' => 'materiales.showRubros',
+        'uses' => 'MaterialController@showRubros'
+    ]);
+
+    $router->get('/grupos', [
+        'as' => 'materiales.showGrupos',
+        'uses' => 'MaterialController@showGrupos'
+    ]);
+
     /* Herramientas Routes */
     $router->get('/herramientas', [
         'as' => 'herramientas.index',

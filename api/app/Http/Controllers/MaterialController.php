@@ -152,4 +152,44 @@ class MaterialController extends Controller
         }
         return response()->json(['error' => 'false', 'message' => 'Materiales importados correctamente.']);
     }
+
+    /**
+     * Mostrar la lista de rubros de las herramientas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRubros()
+    {
+        $rubros = Material::distinct()
+            ->whereNotNull('rubro')
+            ->get(['rubro'])
+            ->sortBy('rubro')
+            ->values();
+
+        if (count($rubros) == 0) {
+            return response()->json(['error' => 'true', 'message' => 'No existen materiales cargados en el sistema.']);
+        }
+
+        return response()->json(['error' => 'false', 'data' => $rubros, 'message' => 'Rubros enviados correctamente.']);
+    }
+
+    /**
+     * Mostrar la lista de rubros de las herramientas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showGrupos()
+    {
+        $grupos = Material::distinct()
+            ->whereNotNull('grupo')
+            ->get(['grupo'])
+            ->sortBy('grupo')
+            ->values();
+
+        if (count($grupos) == 0) {
+            return response()->json(['error' => 'true', 'message' => 'No existen materiales cargados en el sistema.']);
+        }
+
+        return response()->json(['error' => 'false', 'data' => $grupos, 'message' => 'Grupos enviados correctamente.']);
+    }
 }
