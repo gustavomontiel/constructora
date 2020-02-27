@@ -16,7 +16,7 @@ class CreateMaterialesTable extends Migration
         Schema::create('materiales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('codigo', 50)->unique();
-            $table->string('descripcion');
+            $table->string('descripcion', 500);
             $table->string('unidad', 10)->nullable();
             $table->string('rubro', 100)->nullable();
             $table->string('grupo', 100)->nullable();

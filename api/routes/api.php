@@ -100,6 +100,11 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'MaterialController@destroy'
     ]);
 
+    $router->post('/importarmateriales', [
+        'as' => 'materiales.importarMateriales',
+        'uses' => 'MaterialController@importarMateriales'
+    ]);
+
     /* Herramientas Routes */
     $router->get('/herramientas', [
         'as' => 'herramientas.index',
@@ -124,6 +129,11 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
     $router->delete('/herramientas/{id}', [
         'as' => 'herramientas.destroy',
         'uses' => 'HerramientaController@destroy'
+    ]);
+
+    $router->post('/importarherramientas', [
+        'as' => 'herramientas.importarHerramientas',
+        'uses' => 'HerramientaController@importarHerramientas'
     ]);
 
     /* Proveedores Routes */

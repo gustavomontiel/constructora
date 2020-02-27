@@ -18,6 +18,7 @@ class CreateHerramientasTable extends Migration
             $table->string('codigo', 50)->unique();
             $table->string('nombre', 100);
             $table->string('descripcion')->nullable();
+            $table->string('unidad', 10)->nullable();
             $table->string('estado', 50);
             $table->string('observacion', 1000)->nullable();
             $table->timestamps();

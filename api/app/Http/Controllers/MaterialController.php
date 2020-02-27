@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CsvImportRequest;
 use App\Material;
 use Illuminate\Http\Request;
 use Validator;
@@ -125,5 +126,30 @@ class MaterialController extends Controller
         $material->delete();
 
         return response()->json(['error' => 'false', 'message' => 'Material eliminado correctamente.']);
+    }
+
+    /**
+     * Importar materiales
+     *
+     * @param  CsvImportRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function importarMateriales(CsvImportRequest $request)
+    {
+        $path = $request->file('csv_file')->getRealPath();
+        $data = array_map(function ($v) {
+            return str_getcsv($v, ";");
+        }, file($path));
+        $cabecera = $data[0];
+        $datos = array_slice($data, 1);
+        Material::truncate();
+        foreach ($datos as $row) { 
+            $material = new Material();
+            for ($i=0; $i < count($cabecera); $i++) { 
+                $material->{trim($cabecera[$i])} = utf8_encode(trim($row[$i]));
+            }
+            $material->save();
+        }
+        return response()->json(['error' => 'false', 'message' => 'Materiales importados correctamente.']);
     }
 }

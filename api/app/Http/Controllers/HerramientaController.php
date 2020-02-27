@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Herramienta;
+use App\Http\Requests\CsvImportRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -125,5 +126,30 @@ class HerramientaController extends Controller
         $herramienta->delete();
 
         return response()->json(['error' => 'false', 'message' => 'Herramienta eliminada correctamente.']);
+    }
+
+    /**
+     * Importar herramientas
+     *
+     * @param  CsvImportRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function importarHerramientas(CsvImportRequest $request)
+    {
+        $path = $request->file('csv_file')->getRealPath();
+        $data = array_map(function ($v) {
+            return str_getcsv($v, ";");
+        }, file($path));
+        $cabecera = $data[0];
+        $datos = array_slice($data, 1);
+        Herramienta::truncate();
+        foreach ($datos as $row) { 
+            $herramienta = new Herramienta();
+            for ($i=0; $i < count($cabecera); $i++) { 
+                $herramienta->{trim($cabecera[$i])} = utf8_encode(trim($row[$i]));
+            }
+            $herramienta->save();
+        }
+        return response()->json(['error' => 'false', 'message' => 'Herramientas importadas correctamente.']);
     }
 }

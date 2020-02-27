@@ -22,6 +22,8 @@ class PedidoController extends Controller
             return response()->json(['error' => 'true', 'message' => 'No existen pedidos cargados en el sistema.']);
         }
 
+        $pedidos->load(['obra', 'solicitante']);
+
         return response()->json(['error' => 'false', 'data' => $pedidos, 'message' => 'Pedidos enviados correctamente.']);
     }
 
