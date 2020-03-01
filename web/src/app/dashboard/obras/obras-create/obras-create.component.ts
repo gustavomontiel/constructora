@@ -29,7 +29,7 @@ export class ObrasCreateComponent implements OnInit {
     });
   }
 
-  crearUsuario() {
+  crearObra() {
 
     Swal.fire({
       title: 'Guardar datos?',

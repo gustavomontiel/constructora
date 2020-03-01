@@ -1,0 +1,112 @@
+    <!-- Content Header (Page header) -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row" *ngIf="pedido">
+          <div class="col-12">
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <i class="fas fa-globe"></i> Pedido
+                    <small class="float-right">Fecha: 9/10/2014</small>
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info mt-2">
+                <div class="col-sm-4 invoice-col">
+                  Obra
+                  <address>
+                    <strong>{{ pedido.obra.nombre }}</strong><br>
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  <address>
+                    <strong>{{ pedido.obra.descripcion }} </strong><br>
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  Solicitante
+                  <address>
+                  <strong>{{ pedido.solicitante.name }}</strong><br>
+                </address>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr class="d-flex">
+                      <th scope="col" class="col-9">Material</th>
+                      <th scope="col" class="col-3">Cantidad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="d-flex" *ngFor="let item of pedido.materiales" >
+                      <td class="col-9">{{ item.descripcion }}</td>
+                      <td class="col-3">{{ item.pivot.cantidad }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr class="d-flex">
+                      <th class="col-9">Herramienta</th>
+                      <th class="col-3">Cantidad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="d-flex" *ngFor="let item of pedido.herramientas" >
+                      <td class="col-9">{{ item.nombre }}</td>
+                      <td class="col-3">{{ item.pivot.cantidad }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-6">
+                  ---
+                </div>
+                <!-- /.col -->
+                <div class="col-6">
+                  <div class="table">
+                    <table class="table">
+                      <tr>
+                        <th style="width:50%">Total items:</th>
+                        <td>{{pedido.herramientas.length + pedido.materiales.length}} </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+            </div>
+
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+

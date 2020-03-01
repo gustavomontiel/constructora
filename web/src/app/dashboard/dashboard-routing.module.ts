@@ -57,6 +57,13 @@ const dashboardRoutes: Routes = [
         },
         loadChildren: () => import('./proveedores/proveedores.module').then(m => m.ProveedoresModule ),
       },
+      {
+        path: 'pedidos',
+        data: {
+          title: ''
+        },
+        loadChildren: () => import('./pedidos/pedidos.module').then(m => m.PedidosModule ),
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]
