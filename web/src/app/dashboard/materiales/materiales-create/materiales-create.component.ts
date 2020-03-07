@@ -1,9 +1,13 @@
+import { GruposService } from './../../grupos/grupos.service';
+import { RubrosService } from './../../rubros/rubros.service';
 import { MaterialesService } from './../materiales.service';
 import { Material } from './../../../shared/models/material.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ListItem } from 'src/app/shared/models/list-item.model';
+
 
 @Component({
   selector: 'app-materiales-create',
@@ -15,11 +19,20 @@ export class MaterialesCreateComponent implements OnInit {
   material: Material;
   forma: FormGroup;
 
+  rubrosOriginal: Material[];
+  rubrosListData: ListItem[] = [];
+
+  gruposOriginal: Material[];
+  gruposListData: ListItem[] = [];
+
   constructor(
     public materialesService: MaterialesService,
+    private rubrosService: RubrosService,
+    private gruposService: GruposService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
   ) { }
+
 
   ngOnInit() {
     this.forma = new FormGroup({
@@ -29,7 +42,39 @@ export class MaterialesCreateComponent implements OnInit {
       rubro: new FormControl(null, Validators.required),
       grupo: new FormControl(null, Validators.required),
     });
+
+    this.getRubros();
+    this.getGrupos();
   }
+
+  getRubros() {
+    this.rubrosService.getItems().subscribe(
+      res => {
+        this.rubrosOriginal = res.data;
+        console.log(this.rubrosOriginal);
+        this.rubrosOriginal.forEach(element => {
+          this.rubrosListData.push({ ItemId: element.rubro, itemName: element.rubro });
+        });
+      }
+    );
+  }
+
+  addItem( name: any ) {
+    return { ItemId: name, itemName: name };
+  }
+
+  getGrupos() {
+    this.gruposService.getItems().subscribe(
+      res => {
+        this.gruposOriginal = res.data;
+        console.log(this.gruposOriginal);
+        this.gruposOriginal.forEach(element => {
+          this.gruposListData.push({ ItemId: element.grupo, itemName: element.grupo });
+        });
+      }
+    );
+  }
+
 
   crearUsuario() {
 

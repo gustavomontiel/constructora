@@ -26,6 +26,16 @@ export class ObrasCreateComponent implements OnInit {
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
       descripcion: new FormControl(null, Validators.required),
+      direccion: new FormGroup({
+        tipo: new FormControl('REAL', Validators.required),
+        calle: new FormControl(null, Validators.required),
+        numero: new FormControl(null),
+        piso: new FormControl(null),
+        departamento: new FormControl(null),
+        localidad: new FormControl(null, Validators.required),
+        provincia: new FormControl(null, Validators.required),
+        pais: new FormControl(null, Validators.required),
+      }),
     });
   }
 

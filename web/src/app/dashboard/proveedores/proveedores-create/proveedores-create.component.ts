@@ -41,7 +41,7 @@ export class ProveedoresCreateComponent implements OnInit {
     });
   }
 
-  crearUsuario() {
+  crearProveedor() {
 
     Swal.fire({
       title: 'Guardar datos?',

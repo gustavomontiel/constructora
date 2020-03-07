@@ -18,17 +18,19 @@
           <div class="form-group col-md-9">
             <label for="descripcion">Descripción</label>
             <input formControlName="descripcion" name="descripcion" type="text" class="form-control"
-              placeholder="Descripción" required>
+              placeholder="Descripción">
           </div>
           <div class="form-group col-md-3">
             <label for="estado">Estado</label>
-            <input formControlName="estado" name="estado" type="text" class="form-control" placeholder="Estado"
-              required>
+            <ng-select name="rubrosListData" id="'rubrosListData'" virtualScroll="true" placeholder="Seleccionar rubro"
+              [items]="estados" formControlName="estado" bindLabel="estado" [multiple]="false"
+              bindValue="estado" [searchable]="true" [clearable]="true" [closeOnSelect]="false">
+            </ng-select>
           </div>
           <div class="form-group col-md-12">
             <label for="observacion">Observaciones</label>
             <input formControlName="observacion" name="observacion" type="text" class="form-control"
-              placeholder="Observaciones" required>
+              placeholder="Observaciones">
           </div>
         </div>
         <!-- /.card-body -->

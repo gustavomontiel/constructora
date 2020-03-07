@@ -7,7 +7,8 @@ import { HerramientasCreateComponent } from './herramientas-create/herramientas-
 import { HerramientasUpdateComponent } from './herramientas-update/herramientas-update.component';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -20,7 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MaterialModule,
     NgbModule,
+    FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     HerramientasRoutingModule
   ]
 })

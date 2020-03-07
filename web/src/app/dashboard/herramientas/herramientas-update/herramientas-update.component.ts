@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { estadosHerramientas_data } from 'src/app/shared/data/estados-herramientas.data';
 
 @Component({
   selector: 'app-herramientas-update',
@@ -14,6 +15,8 @@ export class HerramientasUpdateComponent implements OnInit {
 
   herramienta: Herramienta;
   forma: FormGroup;
+
+  estados = estadosHerramientas_data;
 
   constructor(
     public herramientasService: HerramientasService,
@@ -26,9 +29,9 @@ export class HerramientasUpdateComponent implements OnInit {
     this.forma = new FormGroup({
       codigo: new FormControl(null, Validators.required),
       nombre: new FormControl(null, Validators.required),
-      descripcion: new FormControl(null, Validators.required),
+      descripcion: new FormControl(''),
       estado: new FormControl(null, Validators.required),
-      observacion: new FormControl(null, Validators.required),
+      observacion: new FormControl(''),
     });
 
     this.activatedRoute.params.subscribe(params => {

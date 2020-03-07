@@ -42,7 +42,7 @@
                 </button>
               </th>
               <td class="col-8" *ngIf="materialesListData.length">
-                <ng-select name="materialesListData" [id]="'materialesListData_' + i" virtualScroll="true"
+                <ng-select name="materialesListData" id="materialesListData" virtualScroll="true"
                   placeholder="Seleccionar material" [items]="materialesListData" formControlName="id"
                   bindLabel="itemName" [multiple]="false" bindValue="ItemId" [searchable]="true" [clearable]="true"
                   [closeOnSelect]="false">

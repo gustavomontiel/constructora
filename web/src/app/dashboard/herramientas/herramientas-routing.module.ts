@@ -27,7 +27,7 @@ const routes: Routes = [
         component: HerramientasCreateComponent,
         canDeactivate: [CanDeactivateGuard],
         data: {
-          title: 'Crear obra',
+          title: 'Crear herramienta',
           rolesPermitidos: []
         }
       },
@@ -36,7 +36,7 @@ const routes: Routes = [
         component: HerramientasUpdateComponent,
         canDeactivate: [CanDeactivateGuard],
         data: {
-          title: 'Editar obra',
+          title: 'Editar herramienta',
           rolesPermitidos: []
         }
       },

@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { ListItem } from 'src/app/shared/models/list-item.model';
+import { RubrosService } from '../../rubros/rubros.service';
+import { GruposService } from '../../grupos/grupos.service';
 
 
 @Component({
@@ -16,8 +19,16 @@ export class MaterialesUpdateComponent implements OnInit {
   material: Material;
   forma: FormGroup;
 
+  rubrosOriginal: Material[];
+  rubrosListData: ListItem[] = [];
+
+  gruposOriginal: Material[];
+  gruposListData: ListItem[] = [];
+
   constructor(
     public materialesService: MaterialesService,
+    private rubrosService: RubrosService,
+    private gruposService: GruposService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
   ) { }
@@ -37,6 +48,37 @@ export class MaterialesUpdateComponent implements OnInit {
       this.leerItem(id);
     });
 
+    this.getRubros();
+    this.getGrupos();
+
+  }
+
+  getRubros() {
+    this.rubrosService.getItems().subscribe(
+      res => {
+        this.rubrosOriginal = res.data;
+        console.log(this.rubrosOriginal);
+        this.rubrosOriginal.forEach(element => {
+          this.rubrosListData.push({ ItemId: element.rubro, itemName: element.rubro });
+        });
+      }
+    );
+  }
+
+  addItem( name: any ) {
+    return { ItemId: name, itemName: name };
+  }
+
+  getGrupos() {
+    this.gruposService.getItems().subscribe(
+      res => {
+        this.gruposOriginal = res.data;
+        console.log(this.gruposOriginal);
+        this.gruposOriginal.forEach(element => {
+          this.gruposListData.push({ ItemId: element.grupo, itemName: element.grupo });
+        });
+      }
+    );
   }
 
   leerItem(id: string) {

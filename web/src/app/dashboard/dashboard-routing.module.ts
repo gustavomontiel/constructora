@@ -64,6 +64,20 @@ const dashboardRoutes: Routes = [
         },
         loadChildren: () => import('./pedidos/pedidos.module').then(m => m.PedidosModule ),
       },
+      {
+        path: 'grupos',
+        data: {
+          title: ''
+        },
+        loadChildren: () => import('./grupos/grupos.module').then(m => m.GruposModule ),
+      },
+      {
+        path: 'rubros',
+        data: {
+          title: ''
+        },
+        loadChildren: () => import('./rubros/rubros.module').then(m => m.RubrosModule ),
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]

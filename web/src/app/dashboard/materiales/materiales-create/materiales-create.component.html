@@ -20,13 +20,21 @@
             <input formControlName="unidad" name="unidad" type="text" class="form-control" placeholder="Unidad"
               required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4" *ngIf="rubrosListData.length">
             <label for="rubro">Rubro</label>
-            <input formControlName="rubro" name="rubro" type="text" class="form-control" placeholder="Rubro" required>
+            <ng-select name="rubrosListData" id="'rubrosListData'" virtualScroll="true" placeholder="Seleccionar rubro"
+              [items]="rubrosListData" formControlName="rubro" bindLabel="itemName" [multiple]="false"
+              bindValue="ItemId" [searchable]="true" [clearable]="true" [closeOnSelect]="false" [addTag]="addItem"
+              addTagText="Nuevo item:">
+            </ng-select>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4" *ngIf="gruposListData.length">
             <label for="grupo">Grupo</label>
-            <input formControlName="grupo" name="grupo" type="text" class="form-control" placeholder="Grupo" required>
+            <ng-select name="gruposListData" id="gruposListData" virtualScroll="true" placeholder="Seleccionar grupo"
+              [items]="gruposListData" formControlName="grupo" bindLabel="itemName" [multiple]="false"
+              bindValue="ItemId" [searchable]="true" [clearable]="true" [closeOnSelect]="false" [addTag]="addItem"
+              addTagText="Nuevo item:">
+            </ng-select>
           </div>
         </div>
         <!-- /.card-body -->

@@ -45,6 +45,16 @@ export class ObrasUpdateComponent implements OnInit {
         this.forma.setValue({
           nombre: this.obra.nombre,
           descripcion: this.obra.descripcion,
+          direccion: new FormGroup({
+            tipo: new FormControl('REAL', Validators.required),
+            calle: new FormControl(null, Validators.required),
+            numero: new FormControl(null),
+            piso: new FormControl(null),
+            departamento: new FormControl(null),
+            localidad: new FormControl(null, Validators.required),
+            provincia: new FormControl(null, Validators.required),
+            pais: new FormControl(null, Validators.required),
+          }),
         });
       }
       );
