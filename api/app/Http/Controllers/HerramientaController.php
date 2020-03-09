@@ -38,9 +38,9 @@ class HerramientaController extends Controller
         $validator = Validator::make($input, [
             'codigo' => 'required|string|max:50|unique:herramientas,codigo',
             'nombre' => 'required|string|max:100',
-            'descripcion' => 'string|max:255',
+            'descripcion' => 'nullable|string|max:255',
             'estado' => 'required|string|max:50',
-            'observacion' => 'string|max:1000'
+            'observacion' => 'nullable|string|max:1000'
         ]);
 
         if ($validator->fails()) {
@@ -89,9 +89,9 @@ class HerramientaController extends Controller
         $validator = Validator::make($input, [
             'codigo' => 'required|string|max:50|unique:herramientas,codigo,'.$id,
             'nombre' => 'required|string|max:100',
-            'descripcion' => 'string|max:255',
+            'descripcion' => 'nullable|string|max:255',
             'estado' => 'required|string|max:50',
-            'observacion' => 'string|max:1000'
+            'observacion' => 'nullable|string|max:1000'
         ]);
 
         if ($validator->fails()) {
