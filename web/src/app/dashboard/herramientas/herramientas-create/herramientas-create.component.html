@@ -22,9 +22,9 @@
           </div>
           <div class="form-group col-md-3">
             <label for="estado">Estado</label>
-            <ng-select name="rubrosListData" id="'rubrosListData'" virtualScroll="true" placeholder="Seleccionar rubro"
+            <ng-select name="rubrosListData" id="'rubrosListData'" virtualScroll="true" placeholder="Seleccionar estado"
               [items]="estados" formControlName="estado" bindLabel="estado" [multiple]="false"
-              bindValue="estado" [searchable]="true" [clearable]="true" [closeOnSelect]="false">
+              bindValue="estado" [searchable]="false" [clearable]="false" [closeOnSelect]="true">
             </ng-select>
           </div>
           <div class="form-group col-md-12">
