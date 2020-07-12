@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlApiServices: 'http://constructora-api.grupo-sim.com.ar'
+  urlApiServices: 'https://constructora-api.grupo-sim.com.ar'
 };
 
 /*
