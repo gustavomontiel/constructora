@@ -7,6 +7,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ListItem } from 'src/app/shared/models/list-item.model';
+import { FormErrorHandlerService } from 'src/app/shared/services/form-error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -31,6 +33,7 @@ export class MaterialesCreateComponent implements OnInit {
     private gruposService: GruposService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    private formErrorHandlerService: FormErrorHandlerService
   ) { }
 
 
@@ -51,7 +54,6 @@ export class MaterialesCreateComponent implements OnInit {
     this.rubrosService.getItems().subscribe(
       res => {
         this.rubrosOriginal = res.data;
-        console.log(this.rubrosOriginal);
         this.rubrosOriginal.forEach(element => {
           this.rubrosListData.push({ ItemId: element.rubro, itemName: element.rubro });
         });
@@ -67,7 +69,6 @@ export class MaterialesCreateComponent implements OnInit {
     this.gruposService.getItems().subscribe(
       res => {
         this.gruposOriginal = res.data;
-        console.log(this.gruposOriginal);
         this.gruposOriginal.forEach(element => {
           this.gruposListData.push({ ItemId: element.grupo, itemName: element.grupo });
         });
@@ -76,7 +77,12 @@ export class MaterialesCreateComponent implements OnInit {
   }
 
 
-  crearUsuario() {
+  createItem() {
+
+    if (this.forma.invalid) {
+      this.formErrorHandlerService.fromLocal(this.forma);
+      return;
+    }
 
     Swal.fire({
       title: 'Guardar datos?',
@@ -87,7 +93,6 @@ export class MaterialesCreateComponent implements OnInit {
 
       if (result.value) {
         const item = { ... this.forma.value };
-        console.log(item);
 
         this.materialesService.createItem(item).subscribe(
           resp => {
@@ -103,16 +108,11 @@ export class MaterialesCreateComponent implements OnInit {
               url.pop();
               url.push('materiales-list');
               this.router.navigateByUrl(url.join('/'));
-              console.log(url);
             });
           },
-          err => {
-            console.log(err);
-            Swal.fire(
-              'Error!',
-              'Los cambios no fueron guardados.',
-              'error'
-            );
+          error => {
+            // tslint:disable-next-line: no-unused-expression
+            (error instanceof HttpErrorResponse) && this.formErrorHandlerService.fromServer(this.forma, error);
           }
         );
       }
@@ -129,7 +129,6 @@ export class MaterialesCreateComponent implements OnInit {
         icon: 'question',
         showCancelButton: true,
       }).then(( result ) => {
-        console.log('result', result.value);
         return result.value ? result.value : false;
       });
     } else {

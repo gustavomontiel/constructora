@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { estadosHerramientas_data } from 'src/app/shared/data/estados-herramientas.data';
+import { FormErrorHandlerService } from 'src/app/shared/services/form-error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-herramientas-update',
@@ -22,6 +24,7 @@ export class HerramientasUpdateComponent implements OnInit {
     public herramientasService: HerramientasService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    private formErrorHandlerService: FormErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -60,6 +63,11 @@ export class HerramientasUpdateComponent implements OnInit {
 
   updateItem() {
 
+    if (this.forma.invalid) {
+      this.formErrorHandlerService.fromLocal(this.forma);
+      return;
+    }
+
     Swal.fire({
       title: 'Guardar cambios?',
       text: 'Confirma los cambios?',
@@ -80,13 +88,9 @@ export class HerramientasUpdateComponent implements OnInit {
             );
             this.forma.markAsPristine();
           },
-          err => {
-            console.log(err);
-            Swal.fire(
-              'Error!',
-              'Los cambios no fueron guardados.',
-              'error'
-            );
+          error => {
+            // tslint:disable-next-line: no-unused-expression
+            (error instanceof HttpErrorResponse) && this.formErrorHandlerService.fromServer(this.forma, error);
           }
         );
       }

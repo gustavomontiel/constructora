@@ -3,24 +3,47 @@
   <div class="col-12">
     <div class="card card-primary mt-2 container">
       <!-- form start -->
-      <form role="form" ngNativeValidate [formGroup]="forma" (ngSubmit)="crearProveedor()" action="" method="post">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="forma.errors?.customMsgError">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+          (click)="forma.setErrors({customMsgError: null})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ forma.errors?.customMsgError }}
+      </div>
+
+      <form role="form" ngNativeValidate [formGroup]="forma" (ngSubmit)="createItem()" action="" method="post">
         <div class="card-body form-row">
 
           <div class="form-group col-md-12">
-            <label for="nombre">Nombre</label>
+            <label for="nombre">Nombre*</label>
             <input formControlName="nombre" name="nombre" type="text" class="form-control"
-              placeholder="Nombre del proveedor" required>
+              placeholder="Nombre del proveedor" required
+              [ngClass]="{'is-invalid': forma.controls['nombre'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['nombre'].errors?.customMsgError }}
+            </div>
           </div>
+
           <div class="form-group col-md-4">
-            <label for="cuit">Cuit</label>
+            <label for="cuit">Cuit*</label>
             <input formControlName="cuit" name="cuit" type="number" class="form-control"
-              placeholder="CUIT" required>
+              placeholder="CUIT" required
+              [ngClass]="{'is-invalid': forma.controls['cuit'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['cuit'].errors?.customMsgError }}
+            </div>
           </div>
+
           <div class="form-group col-md-4">
-            <label for="telefono">Teléfono</label>
+            <label for="telefono">Teléfono*</label>
             <input formControlName="telefono" name="telefono" type="text" class="form-control"
-              placeholder="Teléfono" required>
+              placeholder="Teléfono" required
+              [ngClass]="{'is-invalid': forma.controls['telefono'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['telefono'].errors?.customMsgError }}
+            </div>
           </div>
+
           <div class="form-group col-md-4">
             <label for="telefono">Cta. cte.</label>
             <div class="input-group">
@@ -31,52 +54,80 @@
               </div>
               <input type="text" class="form-control"
               [value]=" forma.get('cuenta_corriente').value ? 'Activa' : 'Inactiva'"
-              readonly>
+              readonly
+              [ngClass]="{'is-invalid': forma.controls['cuenta_corriente'].errors?.customMsgError }">
+            </div>
+            <div class="invalid-feedback">
+              {{ forma.controls['cuenta_corriente'].errors?.customMsgError }}
             </div>
           </div>
 
           <div class="row p-1" formGroupName="direccion">
 
             <div class="form-group col-md-3">
-              <label for="calle">Calle</label>
-              <input formControlName="calle" name="calle" type="text" class="form-control"
-                placeholder="Calle" required>
+              <label for="calle">Calle*</label>
+              <input formControlName="calle" name="calle" type="text" class="form-control" placeholder="Calle" required
+                [ngClass]="{'is-invalid': forma.get('direccion.calle').errors?.customMsgError }">
+              <div class="invalid-feedback">
+                {{  forma.get('direccion.calle').errors?.customMsgError }}
+              </div>
             </div>
 
             <div class="form-group col-md-1">
               <label for="numero">Número</label>
-              <input formControlName="numero" name="numero" type="text" class="form-control"
-                placeholder="Número" required>
+              <input formControlName="numero" name="numero" type="text" class="form-control" placeholder="Número"
+                [ngClass]="{'is-invalid': forma.get('direccion.numero').errors?.customMsgError }">
+              <div class="invalid-feedback">
+                {{  forma.get('direccion.numero').errors?.customMsgError }}
+              </div>
             </div>
 
             <div class="form-group col-md-1">
               <label for="piso">Piso</label>
-              <input formControlName="piso" name="piso" type="text" class="form-control"
-                placeholder="Piso">
+              <input formControlName="piso" name="piso" type="text" class="form-control" placeholder="Piso"
+                [ngClass]="{'is-invalid': forma.get('direccion.piso').errors?.customMsgError }">
+              <div class="invalid-feedback">
+                {{  forma.get('direccion.piso').errors?.customMsgError }}
+              </div>
             </div>
 
             <div class="form-group col-md-1">
               <label for="departamento">Dpto</label>
-              <input formControlName="departamento" name="departamento" type="text"
-                class="form-control" placeholder="Dpto">
+              <input formControlName="departamento" name="departamento" type="text" class="form-control"
+                placeholder="Dpto"
+                [ngClass]="{'is-invalid': forma.get('direccion.departamento').errors?.customMsgError }">
+              <div class="invalid-feedback">
+                {{  forma.get('direccion.departamento').errors?.customMsgError }}
+              </div>
             </div>
 
             <div class="form-group col-md-2">
-              <label for="localidad">Localidad</label>
+              <label for="localidad">Localidad*</label>
               <input formControlName="localidad" name="localidad" type="text" class="form-control"
-                placeholder="Localidad" required>
+                placeholder="Localidad" required
+                [ngClass]="{'is-invalid': forma.get('direccion.localidad').errors?.customMsgError }">
+              <div class="invalid-feedback">
+                {{  forma.get('direccion.localidad').errors?.customMsgError }}
+              </div>
             </div>
 
             <div class="form-group col-md-2">
-              <label for="provincia">Provincia</label>
+              <label for="provincia">Provincia*</label>
               <input formControlName="provincia" name="provincia" type="text" class="form-control"
-                placeholder="Provincia" required>
+                placeholder="Provincia" required
+                [ngClass]="{'is-invalid': forma.get('direccion.provincia').errors?.customMsgError }">
+              <div class="invalid-feedback">
+                {{  forma.get('direccion.provincia').errors?.customMsgError }}
+              </div>
             </div>
 
             <div class="form-group col-md-2">
-              <label for="pais">Pais</label>
-              <input formControlName="pais" name="pais" type="text" class="form-control"
-                placeholder="Pais" required>
+              <label for="pais">Pais*</label>
+              <input formControlName="pais" name="pais" type="text" class="form-control" placeholder="Pais" required
+                [ngClass]="{'is-invalid': forma.get('direccion.pais').errors?.customMsgError }">
+              <div class="invalid-feedback">
+                {{  forma.get('direccion.pais').errors?.customMsgError }}
+              </div>
             </div>
 
           </div>

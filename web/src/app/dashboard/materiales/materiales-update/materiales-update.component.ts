@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { ListItem } from 'src/app/shared/models/list-item.model';
 import { RubrosService } from '../../rubros/rubros.service';
 import { GruposService } from '../../grupos/grupos.service';
+import { FormErrorHandlerService } from 'src/app/shared/services/form-error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -31,6 +33,7 @@ export class MaterialesUpdateComponent implements OnInit {
     private gruposService: GruposService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    private formErrorHandlerService: FormErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -100,6 +103,11 @@ export class MaterialesUpdateComponent implements OnInit {
 
   updateItem() {
 
+    if (this.forma.invalid) {
+      this.formErrorHandlerService.fromLocal(this.forma);
+      return;
+    }
+
     Swal.fire({
       title: 'Guardar cambios?',
       text: 'Confirma los cambios?',
@@ -120,13 +128,9 @@ export class MaterialesUpdateComponent implements OnInit {
             );
             this.forma.markAsPristine();
           },
-          err => {
-            console.log(err);
-            Swal.fire(
-              'Error!',
-              'Los cambios no fueron guardados.',
-              'error'
-            );
+          error => {
+            // tslint:disable-next-line: no-unused-expression
+            (error instanceof HttpErrorResponse) && this.formErrorHandlerService.fromServer(this.forma, error);
           }
         );
       }

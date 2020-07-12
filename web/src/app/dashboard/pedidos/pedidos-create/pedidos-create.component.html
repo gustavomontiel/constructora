@@ -1,17 +1,30 @@
 <div class="container-fluid p-2">
   <h3>Crear Pedido</h3>
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="forma.errors?.customMsgError">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+      (click)="forma.setErrors({customMsgError: null})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ forma.errors?.customMsgError }}
+  </div>
+
   <form [formGroup]="forma" (ngSubmit)="crearPedido()" ngNativeValidate>
 
     <div class="form-group" *ngIf="obrasListData.length">
       <label>Obra</label>
       <ng-select name="obrasList" id="obrasList" placeholder="Seleccionar Obra" [items]="obrasListData"
         [(ngModel)]="obrasListSelected" bindLabel="itemName" [multiple]="false" formControlName="obra_id"
-        bindValue="ItemId" [searchable]="true" [clearable]="true" [closeOnSelect]="false">
+        bindValue="ItemId" [searchable]="true" [clearable]="true" [closeOnSelect]="false"
+        [ngClass]="{'is-invalid': forma.controls['obra_id'].errors?.customMsgError }">
         <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
           <input id="item-{{item.id}}" type="checkbox" [ngModel]="item$.selected"
             [ngModelOptions]="{standalone: true}" /> {{item.itemName}}
         </ng-template>
       </ng-select>
+      <div class="invalid-feedback">
+        {{ forma.controls['obra_id'].errors?.customMsgError }}
+      </div>
     </div>
 
     <div class="row" style="height: 500px;">

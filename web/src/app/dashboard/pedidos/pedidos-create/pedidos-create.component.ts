@@ -11,6 +11,8 @@ import { PedidosService } from '../pedidos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Obra } from 'src/app/shared/models/obra.model';
 import { ListItem } from 'src/app/shared/models/list-item.model';
+import { FormErrorHandlerService } from 'src/app/shared/services/form-error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-pedidos-create',
@@ -42,6 +44,7 @@ export class PedidosCreateComponent implements OnInit {
     public router: Router,
     public activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private formErrorHandlerService: FormErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -67,7 +70,6 @@ export class PedidosCreateComponent implements OnInit {
     this.materialesService.getItems().subscribe(
       res => {
         this.materialesOriginal = res.data;
-        console.log(this.materialesOriginal);
         this.materialesOriginal.forEach(element => {
           this.materialesListData.push({ ItemId: element.id, itemName: element.descripcion });
         });
@@ -87,6 +89,16 @@ export class PedidosCreateComponent implements OnInit {
 
   crearPedido() {
 
+    if (this.forma.invalid) {
+      this.formErrorHandlerService.fromLocal(this.forma);
+      return;
+    }
+
+    if ( (this.materiales.length + this.herramientas.length) === 0 ) {
+      this.forma.setErrors({customMsgError: 'Debe ingresar al menos un item al pedido'});
+      return;
+    }
+
     Swal.fire({
       title: 'Guardar datos?',
       text: 'Confirma los datos?',
@@ -96,7 +108,6 @@ export class PedidosCreateComponent implements OnInit {
 
       if (result.value) {
         const item = { ... this.forma.value };
-        console.log(item);
 
         this.pedidosService.createItem(item).subscribe(
           resp => {
@@ -112,16 +123,11 @@ export class PedidosCreateComponent implements OnInit {
               url.pop();
               url.push('pedidos-list');
               this.router.navigateByUrl(url.join('/'));
-              console.log(url);
             });
           },
-          err => {
-            console.log(err);
-            Swal.fire(
-              'Error!',
-              'Los cambios no fueron guardados.',
-              'error'
-            );
+          error => {
+            // tslint:disable-next-line: no-unused-expression
+            (error instanceof HttpErrorResponse) && this.formErrorHandlerService.fromServer(this.forma, error);
           }
         );
       }
@@ -138,7 +144,6 @@ export class PedidosCreateComponent implements OnInit {
         icon: 'question',
         showCancelButton: true,
       }).then((result) => {
-        console.log('result', result.value);
         return result.value ? result.value : false;
       });
     } else {
@@ -156,7 +161,7 @@ export class PedidosCreateComponent implements OnInit {
   }
 
   agregarItemPedido(tipo: string) {
-    console.log('agregarItemPedido', tipo);
+
     const numberPatern = '^[0-9.,]+$';
     const itemPedido = {
       id: [null, [ Validators.required, Validators.pattern(numberPatern), Validators.min(1) ]],
@@ -180,7 +185,7 @@ export class PedidosCreateComponent implements OnInit {
   }
 
   removeItemPedido(tipo: string, i: number) {
-    console.log('removeItemPedido', tipo, i);
+
     switch (tipo) {
       case 'material': {
         this.materiales.removeAt(i);

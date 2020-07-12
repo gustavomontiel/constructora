@@ -1,46 +1,74 @@
 <div class="container-fluid">
-  <h3>Crear Material</h3>
+  <h3>Crear material</h3>
   <div class="col-12">
     <div class="card card-primary mt-2 container">
       <!-- form start -->
-      <form role="form" ngNativeValidate [formGroup]="forma" (ngSubmit)="crearUsuario()" action="" method="post">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="forma.errors?.customMsgError">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+          (click)="forma.setErrors({customMsgError: null})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ forma.errors?.customMsgError }}
+      </div>
+
+      <form role="form" ngNativeValidate [formGroup]="forma" (ngSubmit)="createItem()" action="" method="post">
         <div class="card-body form-row">
           <div class="form-group col-md-3">
-            <label for="codigo">Código</label>
+            <label for="codigo">Código*</label>
             <input formControlName="codigo" name="codigo" type="text" class="form-control"
-              placeholder="Código del material" required>
+              placeholder="Código del material" required
+              [ngClass]="{'is-invalid': forma.controls['codigo'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['codigo'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-9">
-            <label for="descripcion">Descripción</label>
+            <label for="descripcion">Descripción*</label>
             <input formControlName="descripcion" name="descripcion" type="text" class="form-control"
-              placeholder="Descripción" required>
+              placeholder="Descripción" required
+              [ngClass]="{'is-invalid': forma.controls['descripcion'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['descripcion'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-4">
-            <label for="unidad">Unidad</label>
+            <label for="unidad">Unidad*</label>
             <input formControlName="unidad" name="unidad" type="text" class="form-control" placeholder="Unidad"
-              required>
+              required
+              [ngClass]="{'is-invalid': forma.controls['unidad'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['unidad'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-4" *ngIf="rubrosListData.length">
             <label for="rubro">Rubro</label>
             <ng-select name="rubrosListData" id="'rubrosListData'" virtualScroll="true" placeholder="Seleccionar rubro"
               [items]="rubrosListData" formControlName="rubro" bindLabel="itemName" [multiple]="false"
               bindValue="ItemId" [searchable]="true" [clearable]="true" [closeOnSelect]="false" [addTag]="addItem"
-              addTagText="Nuevo item:">
+              addTagText="Nuevo item:"
+              [ngClass]="{'is-invalid': forma.controls['rubro'].errors?.customMsgError }">
             </ng-select>
+            <div class="invalid-feedback">
+              {{ forma.controls['rubro'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-4" *ngIf="gruposListData.length">
             <label for="grupo">Grupo</label>
             <ng-select name="gruposListData" id="gruposListData" virtualScroll="true" placeholder="Seleccionar grupo"
               [items]="gruposListData" formControlName="grupo" bindLabel="itemName" [multiple]="false"
               bindValue="ItemId" [searchable]="true" [clearable]="true" [closeOnSelect]="false" [addTag]="addItem"
-              addTagText="Nuevo item:">
+              addTagText="Nuevo item:"
+              [ngClass]="{'is-invalid': forma.controls['grupo'].errors?.customMsgError }">
             </ng-select>
+            <div class="invalid-feedback">
+              {{ forma.controls['grupo'].errors?.customMsgError }}
+            </div>
           </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer row justify-content-end">
           <a routerLink="materiales" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-          <button [disabled]="forma.invalid" type="submit" class="btn btn-primary">Guardar</button>
+          <button [disabled]="this.forma.pristine" type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </form>
     </div>

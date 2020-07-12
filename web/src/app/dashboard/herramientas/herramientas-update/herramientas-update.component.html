@@ -3,41 +3,68 @@
   <div class="col-12">
     <div class="card card-primary mt-2 container">
       <!-- form start -->
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="forma.errors?.customMsgError">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+          (click)="forma.setErrors({customMsgError: null})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ forma.errors?.customMsgError }}
+      </div>
+
       <form role="form" ngNativeValidate [formGroup]="forma" (ngSubmit)="updateItem()" action="" method="post">
         <div class="card-body form-row">
           <div class="form-group col-md-3">
-            <label for="codigo">Código</label>
+            <label for="codigo">Código*</label>
             <input formControlName="codigo" name="codigo" type="text" class="form-control"
-              placeholder="Código de la herramienta" required>
+              placeholder="Código de la herramienta" required
+              [ngClass]="{'is-invalid': forma.controls['codigo'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['codigo'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-9">
-            <label for="nombre">Nombre</label>
+            <label for="nombre">Nombre*</label>
             <input formControlName="nombre" name="nombre" type="text" class="form-control"
-              placeholder="Nombre de la obra" required>
+              placeholder="Nombre de la obra" required
+              [ngClass]="{'is-invalid': forma.controls['nombre'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['nombre'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-9">
             <label for="descripcion">Descripción</label>
             <input formControlName="descripcion" name="descripcion" type="text" class="form-control"
-              placeholder="Descripción">
+              placeholder="Descripción"
+              [ngClass]="{'is-invalid': forma.controls['descripcion'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['descripcion'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-3">
             <label for="estado">Estado</label>
             <ng-select name="rubrosListData" id="'rubrosListData'" virtualScroll="true" placeholder="Seleccionar estado"
               [items]="estados" formControlName="estado" bindLabel="estado" [multiple]="false"
-              bindValue="estado" [searchable]="false" [clearable]="false" [closeOnSelect]="true">
+              bindValue="estado" [searchable]="false" [clearable]="false" [closeOnSelect]="true"
+              [ngClass]="{'is-invalid': forma.controls['estado'].errors?.customMsgError }">
             </ng-select>
+            <div class="invalid-feedback">
+              {{ forma.controls['estado'].errors?.customMsgError }}
+            </div>
           </div>
           <div class="form-group col-md-12">
             <label for="observacion">Observaciones</label>
             <input formControlName="observacion" name="observacion" type="text" class="form-control"
-              placeholder="Observaciones">
+              placeholder="Observaciones"
+              [ngClass]="{'is-invalid': forma.controls['observacion'].errors?.customMsgError }">
+            <div class="invalid-feedback">
+              {{ forma.controls['observacion'].errors?.customMsgError }}
+            </div>
           </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer row justify-content-end">
           <a routerLink="obras" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-          <button [disabled]="forma.invalid || this.forma.pristine" type="submit"
-            class="btn btn-primary">Guardar</button>
+          <button [disabled]="this.forma.pristine" type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </form>
     </div>

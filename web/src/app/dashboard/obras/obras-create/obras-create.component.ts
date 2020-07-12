@@ -4,6 +4,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Obra } from 'src/app/shared/models/obra.model';
+import { FormErrorHandlerService } from 'src/app/shared/services/form-error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class ObrasCreateComponent implements OnInit {
     public obrasService: ObrasService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    private formErrorHandlerService: FormErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -32,14 +35,20 @@ export class ObrasCreateComponent implements OnInit {
         numero: new FormControl(null),
         piso: new FormControl(null),
         departamento: new FormControl(null),
-        localidad: new FormControl(null, Validators.required),
-        provincia: new FormControl(null, Validators.required),
-        pais: new FormControl(null, Validators.required),
+        localidad: new FormControl('Posadas', Validators.required),
+        provincia: new FormControl('Misiones', Validators.required),
+        pais: new FormControl('Argentina', Validators.required),
       }),
     });
+
   }
 
-  crearObra() {
+  createItem() {
+
+    if (this.forma.invalid) {
+      this.formErrorHandlerService.fromLocal(this.forma);
+      return;
+    }
 
     Swal.fire({
       title: 'Guardar datos?',
@@ -50,7 +59,6 @@ export class ObrasCreateComponent implements OnInit {
 
       if (result.value) {
         const item = { ... this.forma.value };
-        console.log(item);
 
         this.obrasService.createItem(item).subscribe(
           resp => {
@@ -66,16 +74,11 @@ export class ObrasCreateComponent implements OnInit {
               url.pop();
               url.push('obras-list');
               this.router.navigateByUrl(url.join('/'));
-              console.log(url);
             });
           },
-          err => {
-            console.log(err);
-            Swal.fire(
-              'Error!',
-              'Los cambios no fueron guardados.',
-              'error'
-            );
+          error => {
+            // tslint:disable-next-line: no-unused-expression
+            (error instanceof HttpErrorResponse) && this.formErrorHandlerService.fromServer(this.forma, error);
           }
         );
       }

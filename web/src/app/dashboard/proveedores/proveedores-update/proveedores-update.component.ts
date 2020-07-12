@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Proveedor } from 'src/app/shared/models/proveedor.model';
 import { ProveedoresService } from '../proveedores.service';
+import { FormErrorHandlerService } from 'src/app/shared/services/form-error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class ProveedoresUpdateComponent implements OnInit {
     public proveedoresService: ProveedoresService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    private formErrorHandlerService: FormErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -27,7 +30,7 @@ export class ProveedoresUpdateComponent implements OnInit {
     this.forma = new FormGroup({
       cuit: new FormControl(null, Validators.required),
       nombre: new FormControl(null, Validators.required),
-      telefono: new FormControl(null),
+      telefono: new FormControl(null, Validators.required),
       direccion: new FormGroup({
         tipo: new FormControl('REAL', Validators.required),
         calle: new FormControl(null, Validators.required),
@@ -53,7 +56,7 @@ export class ProveedoresUpdateComponent implements OnInit {
     this.proveedoresService.getItemById(id)
       .subscribe(resp => {
         this.proveedor = resp.data;
-        console.log(this.proveedor);
+
         this.forma.setValue({
           cuit: this.proveedor.cuit,
           nombre: this.proveedor.nombre,
@@ -66,6 +69,11 @@ export class ProveedoresUpdateComponent implements OnInit {
   }
 
   updateItem() {
+
+    if (this.forma.invalid) {
+      this.formErrorHandlerService.fromLocal(this.forma);
+      return;
+    }
 
     Swal.fire({
       title: 'Guardar cambios?',
@@ -87,13 +95,9 @@ export class ProveedoresUpdateComponent implements OnInit {
             );
             this.forma.markAsPristine();
           },
-          err => {
-            console.log(err);
-            Swal.fire(
-              'Error!',
-              'Los cambios no fueron guardados.',
-              'error'
-            );
+          error => {
+            // tslint:disable-next-line: no-unused-expression
+            (error instanceof HttpErrorResponse) && this.formErrorHandlerService.fromServer(this.forma, error);
           }
         );
       }
