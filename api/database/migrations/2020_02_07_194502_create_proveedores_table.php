@@ -15,7 +15,7 @@ class CreateProveedoresTable extends Migration
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('cuit')->unique();
+            $table->string('cuit')->nullable();
             $table->string('nombre');
             $table->string('telefono')->nullable();
             $table->boolean('cuenta_corriente')->default(false);

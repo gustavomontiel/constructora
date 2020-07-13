@@ -35,7 +35,7 @@ class ProveedorController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'cuit' => 'required|numeric|unique:proveedores,cuit',
+            'cuit' => 'string',
             'nombre' => 'required|string|max:255',
             'telefono' => 'string|max:255',
             'cuenta_corriente' => 'boolean',
@@ -87,7 +87,7 @@ class ProveedorController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'cuit' => 'numeric|unique:proveedores,cuit,' . $id,
+            'cuit' => 'string',
             'nombre' => 'string|max:255',
             'telefono' => 'string|max:255',
             'cuenta_corriente' => 'boolean',
