@@ -1,7 +1,7 @@
 import { Direccion } from './direccion.model';
 
 export class Proveedor {
-  public cuit: number;
+  public cuit?: string;
   public nombre: string;
   public telefono?: string;
   public direccion: Direccion;

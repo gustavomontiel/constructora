@@ -35,8 +35,8 @@
           <div class="row p-1" formGroupName="direccion">
 
             <div class="form-group col-md-3">
-              <label for="calle">Calle*</label>
-              <input formControlName="calle" name="calle" type="text" class="form-control" placeholder="Calle" required
+              <label for="calle">Calle</label>
+              <input formControlName="calle" name="calle" type="text" class="form-control" placeholder="Calle"
                 [ngClass]="{'is-invalid': forma.get('direccion.calle').errors?.customMsgError }">
               <div class="invalid-feedback">
                 {{  forma.get('direccion.calle').errors?.customMsgError }}
@@ -107,7 +107,7 @@
         <!-- /.card-body -->
         <div class="card-footer row justify-content-end">
           <a routerLink="obras" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-          <button [disabled]="this.forma.pristine" type="submit" class="btn btn-primary">Guardar</button>
+          <button [disabled]="forma.pristine" type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </form>
     </div>

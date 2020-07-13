@@ -27,12 +27,12 @@ export class ProveedoresCreateComponent implements OnInit {
 
   ngOnInit() {
     this.forma = new FormGroup({
-      cuit: new FormControl(null, Validators.required),
+      cuit: new FormControl(null),
       nombre: new FormControl(null, Validators.required),
-      telefono: new FormControl(null, Validators.required),
+      telefono: new FormControl(null),
       direccion: new FormGroup({
         tipo: new FormControl('REAL', Validators.required),
-        calle: new FormControl(null, Validators.required),
+        calle: new FormControl(null),
         numero: new FormControl(null),
         piso: new FormControl(null),
         departamento: new FormControl(null),

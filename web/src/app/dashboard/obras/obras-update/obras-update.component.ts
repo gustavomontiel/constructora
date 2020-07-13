@@ -32,7 +32,7 @@ export class ObrasUpdateComponent implements OnInit {
       descripcion: new FormControl(null, Validators.required),
       direccion: new FormGroup({
         tipo: new FormControl('REAL', Validators.required),
-        calle: new FormControl(null, Validators.required),
+        calle: new FormControl(null),
         numero: new FormControl(null),
         piso: new FormControl(null),
         departamento: new FormControl(null),

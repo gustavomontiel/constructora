@@ -38,7 +38,7 @@
         <!-- /.card-body -->
         <div class="card-footer row justify-content-end">
           <a routerLink="usuarios" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-          <button [disabled]="forma.invalid || this.forma.pristine" type="submit"
+          <button [disabled]="forma.pristine" type="submit"
             class="btn btn-primary">Guardar</button>
         </div>
       </form>

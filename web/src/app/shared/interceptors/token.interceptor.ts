@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     const token = sessionStorage.getItem('token');
 
-    if ( token ) {
+    if (token) {
       request = request.clone({
         setHeaders: {
           Authorization: 'Bearer ' + token
@@ -32,8 +32,11 @@ export class TokenInterceptor implements HttpInterceptor {
           if (err.status === 401) {
             this.usuarioService.logout();
           }
+          /*
           const error = err.error.message || err.statusText;
           return throwError(error);
+          */
+          return throwError(err);
         }
       )
     );

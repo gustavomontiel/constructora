@@ -25,9 +25,9 @@
           </div>
 
           <div class="form-group col-md-4">
-            <label for="cuit">Cuit*</label>
-            <input formControlName="cuit" name="cuit" type="number" class="form-control"
-              placeholder="CUIT" required
+            <label for="cuit">Cuit</label>
+            <input formControlName="cuit" name="cuit" type="text" class="form-control"
+              placeholder="CUIT"
               [ngClass]="{'is-invalid': forma.controls['cuit'].errors?.customMsgError }">
             <div class="invalid-feedback">
               {{ forma.controls['cuit'].errors?.customMsgError }}
@@ -35,9 +35,9 @@
           </div>
 
           <div class="form-group col-md-4">
-            <label for="telefono">Teléfono*</label>
+            <label for="telefono">Teléfono</label>
             <input formControlName="telefono" name="telefono" type="text" class="form-control"
-              placeholder="Teléfono" required
+              placeholder="Teléfono"
               [ngClass]="{'is-invalid': forma.controls['telefono'].errors?.customMsgError }">
             <div class="invalid-feedback">
               {{ forma.controls['telefono'].errors?.customMsgError }}
@@ -65,8 +65,8 @@
           <div class="row p-1" formGroupName="direccion">
 
             <div class="form-group col-md-3">
-              <label for="calle">Calle*</label>
-              <input formControlName="calle" name="calle" type="text" class="form-control" placeholder="Calle" required
+              <label for="calle">Calle</label>
+              <input formControlName="calle" name="calle" type="text" class="form-control" placeholder="Calle"
                 [ngClass]="{'is-invalid': forma.get('direccion.calle').errors?.customMsgError }">
               <div class="invalid-feedback">
                 {{  forma.get('direccion.calle').errors?.customMsgError }}

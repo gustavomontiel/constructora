@@ -53,9 +53,9 @@
           </div>
           <div class="form-group col-md-12">
             <label for="observacion">Observaciones</label>
-            <input formControlName="observacion" name="observacion" type="text" class="form-control"
-              placeholder="Observaciones"
-              [ngClass]="{'is-invalid': forma.controls['observacion'].errors?.customMsgError }">
+            <textarea formControlName="observacion" name="observacion" type="text" class="form-control"
+              placeholder="Observaciones" rows="5"
+              [ngClass]="{'is-invalid': forma.controls['observacion'].errors?.customMsgError }"></textarea>
             <div class="invalid-feedback">
               {{ forma.controls['observacion'].errors?.customMsgError }}
             </div>
@@ -64,7 +64,7 @@
         <!-- /.card-body -->
         <div class="card-footer row justify-content-end">
           <a routerLink="obras" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-          <button [disabled]="this.forma.pristine" type="submit" class="btn btn-primary">Guardar</button>
+          <button [disabled]="forma.pristine" type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </form>
     </div>

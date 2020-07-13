@@ -169,16 +169,16 @@ export class GenericCrudService {
   }
 
 
-  async printError( err: any ) {
-    console.error( 'Mensaje de error:', err );
-    if ( err.error && err.error.message ) {
-      await Swal.fire({
+  printError( err: any ) {
+    console.error( 'Mensaje de printError:', typeof err );
+    if ( !( err.status === 422 || err.status === 400 ) && err.error && err.error.message ) {
+      Swal.fire({
         title: 'Mensaje del servicio',
         text: err.error.message,
         icon: 'warning',
         confirmButtonText: 'Ok',
       }).then((result) => {
-        console.log(result);
+        return throwError( err );
       });
     }
     return throwError( err );

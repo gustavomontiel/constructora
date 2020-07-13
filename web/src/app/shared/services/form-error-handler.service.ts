@@ -44,7 +44,7 @@ export class FormErrorHandlerService {
       Object.keys(formulario.controls).forEach(prop => {
 
         const formControl = formulario.get(prop);
-        // console.log(formControl);
+
         if (formControl instanceof FormControl) {
 
           if (!formControl.valid) {

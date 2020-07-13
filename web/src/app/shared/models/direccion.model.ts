@@ -1,7 +1,7 @@
 export class Direccion {
 
   public tipo: string;
-  public calle: string;
+  public calle?: string;
   public numero?: string;
   public piso?: string;
   public departamento?: string;
